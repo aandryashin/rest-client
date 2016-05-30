@@ -1,0 +1,41 @@
+<table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Method</th>
+        <th>Request URL</th>
+        <th>Status</th>
+        <th>Repeat</th>
+    </tr>
+    <tr>
+        <th colspan="5">
+            <input st-search="url" class="form-control" placeholder="Filter by Request URL..." type="search">
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in displayedCollection | orderBy:'-date'">
+        <td>{{row.date | date:'MMM d, y, HH:mm:ss' | limitTo: 22}}</td>
+        <td>{{row.method}}</td>
+        <td>{{row.url | limitTo: 40}}</td>
+        <td>{{row.status | limitTo: 40}}</td>
+        <td>
+            <button class="btn btn-xs" type="button">
+                <a ng-href="/#/request?id={{row.id}}" title="Repeat server call...">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                </a>
+            </button>
+            <!--<button class="btn btn-xs btn-primary" type="button" title="Remove from history...">-->
+                <!--<i class="glyphicon glyphicon-minus" ng-click="remove($index)"></i>-->
+            <!--</button>-->
+        </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <!--<tr>-->
+        <!--<td colspan="5" class="text-center">-->
+            <!--<div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>-->
+        <!--</td>-->
+    <!--</tr>-->
+    </tfoot>
+</table>

@@ -1,0 +1,21 @@
+<table class="table table-bordered">
+    <tbody>
+    <tr ng-repeat="header in headers track by $index">
+        <td>{{header.name}}</td>
+        <td>{{header.value}}</td>
+        <td class="text-center" ng-show="{{edit}}">
+            <button class="btn btn-xs" type="button"><i class="glyphicon glyphicon-minus"
+                                                        ng-click="removeHeader($index)"></i></button>
+        </td>
+    </tr>
+    <tr ng-show="{{edit}}">
+        <td><input type="text" class="form-control" placeholder="Header Name" ng-model="newHeader.name"></td>
+        <td><input type="text" class="form-control" placeholder="Header Value" ng-model="newHeader.value"></td>
+        <td class="text-center">
+            <button class="btn btn-xs btn-primary" type="button"><i class="glyphicon glyphicon-plus"
+                                                                    ng-click="addHeader()"></i>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>

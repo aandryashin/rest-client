@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://aandryashin.github.com/rest"
+            targetNamespace="http://aandryashin.github.com/rest"
+            elementFormDefault="unqualified"
+            attributeFormDefault="unqualified">
+
+    <xsd:simpleType name="method">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="GET"/>
+            <xsd:enumeration value="POST"/>
+            <xsd:enumeration value="PUT"/>
+            <xsd:enumeration value="PATCH"/>
+            <xsd:enumeration value="DELETE"/>
+            <xsd:enumeration value="TRACE"/>
+            <xsd:enumeration value="OPTIONS"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="Payload" abstract="true">
+        <xsd:sequence>
+            <xsd:element name="header" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:attribute name="name" type="xsd:string" use="required"/>
+                    <xsd:attribute name="value" type="xsd:string" default=""/>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="body" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:element name="call">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="id" type="xsd:string"/>
+                <xsd:element name="timestamp" type="xsd:long"/>
+                <xsd:element name="request">
+                    <xsd:complexType>
+                        <xsd:complexContent>
+                            <xsd:extension base="tns:Payload">
+                                <xsd:sequence>
+                                    <xsd:element name="auth" minOccurs="0">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="user" type="xsd:string" default=""/>
+                                                <xsd:element name="pass" type="xsd:string" default=""/>
+                                                <xsd:element name="url" type="xsd:string" default=""/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                                <xsd:attribute name="url" type="xsd:anyURI" use="required"/>
+                                <xsd:attribute name="method" type="tns:method" default="GET"/>
+                            </xsd:extension>
+                        </xsd:complexContent>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:choice>
+                    <xsd:element name="response">
+                        <xsd:complexType>
+                            <xsd:complexContent>
+                                <xsd:extension base="tns:Payload">
+                                    <xsd:sequence>
+                                        <xsd:element name="status">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="code" type="xsd:int"/>
+                                                    <xsd:element name="message" type="xsd:string"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:extension>
+                            </xsd:complexContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="error">
+                        <xsd:complexType>
+                            <xsd:attribute name="message" type="xsd:string"/>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

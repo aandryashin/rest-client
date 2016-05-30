@@ -1,0 +1,1 @@
+angular.module('rest', ['ngRoute', 'smart-table']);

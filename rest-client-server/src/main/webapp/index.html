@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="rest">
+<head>
+    <title>Rest Client</title>
+    <link href='css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<body>
+
+
+<div class='navbar navbar-default navbar-static-top'>
+    <div class='container'>
+        <div class="row">
+            <a href='/' class='navbar-brand'>Rest Client</a>
+            <ul class='nav'>
+                <li><a href='/#/history' class="nav navbar-right">History</a></li>
+                <li><a href='/#/request' class="nav navbar-right">Main</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class='container'>
+    <div ng-view></div>
+</div>
+
+<script src="/js/vendor/jquery.js"></script>
+<script src="/js/vendor/bootstrap.js"></script>
+<script src="/js/vendor/angular.js"></script>
+<script src="/js/vendor/angular-route.js"></script>
+<script src="/js/vendor/angular-resource.js"></script>
+<script src='js/vendor/smart-table.min.js'></script>
+
+<script src='js/app.js'></script>
+<script src='js/routes.js'></script>
+<script src='js/history-controller.js'></script>
+<script src='js/request-controller.js'></script>
+<script src='js/header-list.js'></script>
+
+</body>
+</html>

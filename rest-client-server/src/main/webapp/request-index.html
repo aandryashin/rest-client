@@ -1,0 +1,120 @@
+<div class="row">
+    <h4>Request</h4>
+</div>
+
+<div class="row well">
+    <div class="row">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">&gt;</span>
+                <input id="url" name="url" class="form-control" placeholder="http://localhost:8080/api/..."
+                       type="text" value="{{call.request.url}}" ng-model="call.request.url">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <label text-centered>Method:</label>
+        <div class="form-group">
+            <label class="radio-inline" for="radios-0">
+                <input type="radio" name="radios" id="radios-0" value="GET" checked="checked"
+                       ng-model="call.request.method">
+                GET
+            </label>
+            <label class="radio-inline" for="radios-1">
+                <input type="radio" name="radios" id="radios-1" value="POST" ng-model="call.request.method">
+                POST
+            </label>
+            <label class="radio-inline" for="radios-2">
+                <input type="radio" name="radios" id="radios-2" value="PUT" ng-model="call.request.method">
+                PUT
+            </label>
+            <label class="radio-inline" for="radios-3">
+                <input type="radio" name="radios" id="radios-3" value="PATCH" ng-model="call.request.method">
+                PATCH
+            </label>
+            <label class="radio-inline" for="radios-4">
+                <input type="radio" name="radios" id="radios-4" value="DELETE" ng-model="call.request.method">
+                DELETE
+            </label>
+            <label class="radio-inline" for="radios-5">
+                <input type="radio" name="radios" id="radios-5" value="TRACE" ng-model="call.request.method">
+                TRACE
+            </label>
+            <label class="radio-inline" for="radios-6">
+                <input type="radio" name="radios" id="radios-6" value="OPTIONS" ng-model="call.request.method">
+                OPTIONS
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <label text-centered>Headers:</label>
+        <header-list headers="call.request.header" edit="true"></header-list>
+    </div>
+
+    <div class="row">
+        <label text-centered>Auth:</label>
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" placeholder="Username" ng-model="call.request.auth.user">
+                </td>
+                <td>
+                    <input type="password" class="form-control" placeholder="Password"
+                           ng-model="call.request.auth.pass">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input type="text" class="form-control"
+                           placeholder="OAuth provider url, leave this field empty to use BASIC authentication..."
+                           ng-model="call.request.auth.url">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="row">
+        <label text-centered>Body:</label>
+        <div class="form-group">
+            <textarea class="form-control" rows="6" ng-model="call.request.body"></textarea>
+        </div>
+
+    </div>
+    <div class="row">
+        <div id="submit-button" class="pull-right">
+            <button type="submit" class="btn btn-primary" id="submitFormButton" ng-click="submit()">Submit</button>
+        </div>
+    </div>
+</div>
+
+<div ng-show="call.response">
+    <div class="row">
+        <h4>Response: {{call.response.status.code}} {{call.response.status.message}}</h4>
+    </div>
+
+    <div class="row">
+        <div class="well">
+            <div class="row">
+                <label text-centered>Headers:</label>
+                <header-list headers="call.response.header" edit="false"></header-list>
+            </div>
+            <div class="row">
+                <label text-centered>Body:</label>
+                <div class="form-group">
+                    <textarea class="form-control" rows="6" ng-model="call.response.body"></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="call.error">
+    <div class="row">
+        <h4>Error: {{call.error.message}}</h4>
+    </div>
+</div>
