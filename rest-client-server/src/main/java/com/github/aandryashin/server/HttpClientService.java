@@ -2,6 +2,7 @@ package com.github.aandryashin.server;
 
 import com.github.aandryashin.rest.Call;
 import com.github.aandryashin.rest.Payload;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -36,7 +37,6 @@ public class HttpClientService {
     }
 
     protected HttpUriRequest convert(Call.Request callRequest) {
-
         RequestBuilder builder = RequestBuilder.create(callRequest.getMethod().value()).setUri(callRequest.getUrl());
 
         if (callRequest.getBody() != null) {
@@ -44,6 +44,15 @@ public class HttpClientService {
         }
         for (Payload.Header header : callRequest.getHeaders()) {
             builder.addHeader(header.getName(), header.getValue());
+        }
+        if (callRequest.getAuth() != null) {
+            if (callRequest.getAuth().getUser() != null && !callRequest.getAuth().getUser().trim().isEmpty()) {
+                String cred = callRequest.getAuth().getUser() + ":" + callRequest.getAuth().getPass();
+                builder.addHeader("Authorization", "Basic ".concat(Base64.encodeBase64String(cred.getBytes())));
+            }
+            if (callRequest.getAuth().getToken() != null && !callRequest.getAuth().getToken().trim().isEmpty()) {
+                builder.addHeader("Authorization", "Bearer ".concat(callRequest.getAuth().getToken()));
+            }
         }
         return builder.build();
     }
