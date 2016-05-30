@@ -11,7 +11,6 @@ angular.module('rest').controller('RequestController', function ($scope, $http, 
 
     $scope.submit = function() {
         $scope.loading = true;
-        //console.log('###### ' + $scope.call.request.auth.user + ' #### ' + $scope.call.request.auth.pass)
         $http({method: 'POST', url: '/api/request', data: $scope.call.request}).success(function(data){
             $scope.call = data;
         });
