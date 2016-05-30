@@ -2,7 +2,6 @@ package com.github.aandryashin.client;
 
 import com.github.aandryashin.rest.Call;
 import com.github.aandryashin.rest.Method;
-import com.github.aandryashin.rest.Payload;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.ILock;
 import com.hazelcast.core.IMap;
@@ -18,7 +17,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

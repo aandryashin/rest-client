@@ -5,13 +5,29 @@ import com.github.aandryashin.rest.Method;
 import com.github.aandryashin.rest.Payload;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
+import org.junit.ClassRule;
 import org.junit.Test;
+import org.junit.rules.ExternalResource;
+import org.junit.rules.TestRule;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 
 public class RestClientServerTest {
+
+    @ClassRule
+    public static TestRule cleanUp = new ExternalResource() {
+        @Override
+        protected void before() throws Throwable {
+            cleanUp();
+        }
+
+        @Override
+        protected void after() {
+            cleanUp();
+        }
+    };
 
     // This case looks like Jersey issue...
     @Test
@@ -90,6 +106,12 @@ public class RestClientServerTest {
                 equalTo(200)
         );
 
+    }
+
+    private static void cleanUp() {
+        for (Call call : new RestClientClient().calls()) {
+            new RestClientClient().deleteCall(call.getId());
+        }
     }
 
 }

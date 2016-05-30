@@ -1,15 +1,10 @@
 package com.github.aandryashin.client;
 
 import com.github.aandryashin.rest.Call;
-import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.client.ClientProperties;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
-import java.net.URI;
 import java.util.List;
 
 public class RestClientClient {
