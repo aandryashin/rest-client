@@ -59,15 +59,7 @@ public class HttpClientService {
 
     protected Call.Response convert(CloseableHttpResponse response) {
         try {
-            String body = "";
-            if (response.getEntity() != null) {
-                body = IOUtils.toString(
-                        response.getEntity().getContent(),
-                        response.getEntity().getContentEncoding() != null ?
-                                Charset.forName(response.getEntity().getContentEncoding().getValue()) :
-                                Charset.defaultCharset()
-                );
-            }
+            String body = IOUtils.toString(response.getEntity().getContent(), Charset.forName("UTF-8"));
             Call.Response callResponse = new Call.Response().withHeaders().withStatus(
                     new Call.Response.Status()
                             .withCode(response.getStatusLine().getStatusCode())

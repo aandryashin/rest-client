@@ -16,12 +16,12 @@ public class EcxeptionHandler implements ExceptionMapper<Exception> {
 
     @Override
     public Response toResponse(Exception e) {
-
-        LOGGER.error("Internal error:", e);
-
-        Response.StatusType info = Response.Status.INTERNAL_SERVER_ERROR;
+        Response.StatusType info;
         if (e instanceof WebApplicationException) {
             info = ((WebApplicationException) e).getResponse().getStatusInfo();
+        } else {
+            LOGGER.error("Internal error:", e);
+            info = Response.Status.INTERNAL_SERVER_ERROR;
         }
         return Response.status(info.getStatusCode()).entity(
                 new Call.Response.Status().withCode(info.getStatusCode()).withMessage(info.getReasonPhrase())).build();
