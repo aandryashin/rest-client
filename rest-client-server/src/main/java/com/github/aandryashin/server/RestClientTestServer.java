@@ -28,12 +28,6 @@ public class RestClientTestServer {
         return Response.ok().build();
     }
 
-    @GET
-    @Path("error")
-    public Response error() {
-        return Response.serverError().build();
-    }
-
     @POST
     @Path("post")
     @Produces({MediaType.TEXT_PLAIN})
