@@ -8,7 +8,7 @@ angular.module('rest').controller('HistoryController', function ($scope, $http) 
         for (var i = 0; i < calls.length; i++) {
             if (calls[i].response !== undefined && calls[i].response != null) {
                 message = calls[i].response.status.code + ' ' + calls[i].response.status.message
-            } else {
+            } else if (calls[i].error !== undefined && calls[i].error != null) {
                 message = calls[i].error.message;
             }
             $scope.rowCollection.push({
